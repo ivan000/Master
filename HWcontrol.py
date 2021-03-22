@@ -60,7 +60,7 @@ else:
 HWCONTROLLIST=["tempsensor","humidsensor","pressuresensor","analogdigital","lightsensor","pulse","pinstate","servo","stepper","stepperstatus","photo","mail+info+link","mail+info","returnzero","stoppulse","readinputpin","hbridge","empty","DS18B20","Hygro24_I2C","HX711","SlowWire","InterrFreqCounter","WeatherAPI","BME280_temperature","BME280_humidity","BME280_pressure","BMP180_temperature"]
 RPIMODBGPIOPINLIST=["1","2", "3", "4","5","6", "7", "8", "9", "10", "11", "12","13","14", "15", "16","17", "18", "19", "20","21","22", "23", "24", "25","26", "27"]
 NALIST=["N/A"]
-GPIOPLUSLIST=["I2C", "SPI"]
+GPIOPLUSLIST=["I2C", "SPI", "SPI2"] # "SPI" is spi0_ce0, "SPI2" is spi0_ce1
 RPIMODBGPIOPINLISTNA=NALIST+RPIMODBGPIOPINLIST
 RPIMODBGPIOPINLISTPLUS=RPIMODBGPIOPINLISTNA+GPIOPLUSLIST
 
@@ -912,7 +912,7 @@ def get_MCP3008_channel(cmd, message, recdata):
 	
 	messagelen=len(msgarray)
 	
-	#PIN=msgarray[1]
+	PIN=msgarray[1]
 
 	SUBPIN=int(msgarray[2])
 	channel=SUBPIN	
@@ -958,7 +958,12 @@ def get_MCP3008_channel(cmd, message, recdata):
 
 		spi_speed = 1000000 # 1 MHz
 		spi = spidev.SpiDev()
-		spi.open(0,0)
+		
+		if PIN == "SPI2":
+			spi.open(0,1)
+		else:
+			spi.open(0,0)
+		
 		spi.max_speed_hz=spi_speed
 
 		# Function to read SPI data from MCP3008 chip
