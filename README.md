@@ -1,3 +1,13 @@
+# Fork of Hydrosys4 with support of 2 devices on the SPI
+Enables attaching second MCP3008 ADC in configuration like seen here (using SPI0_CE1 for the second ADC): https://uk.mathworks.com/help/supportpkg/raspberrypiio/ug/about-spi-interface-on-the-raspberry-pi-hardware.html
+Setting can be accessed by setting PIN as "SPI2" for the second MCP3008 in the GUI.
+
+
+
+Below is the original readme of Hydrosys4
+
+
+
 # Hydrosystem
 
 The hydrosys4 project aim to create a platform for the raspbery pi 3 which let you easily controls and record sensors data, use actuators through the GPIO and play with analog by using external ADC the supported hardware and wiring can be found in the Documentation folder. The platform is developed in python and is based on web server interface. The system can control the WiFi interface and work either in Access point mode than connected to wifi network. The webserver interface can be adjusted to support several purposes, the current development is a small irrigation system, GIU is made to support planning and conditional irrigation based on temperature and humidity, relays control the valve and pumps, the system also support email notifications, cameras and video. Latest upgrade include possibility to mount camera over servo.
